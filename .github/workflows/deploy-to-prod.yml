@@ -1,0 +1,17 @@
+name: Deployment
+
+on:
+  workflow_dispatch:
+    inputs:
+      commit-hash:
+        description: A full hash of the most recent commit from the 'develop' branch with green CI
+        type: string
+        required: true
+
+jobs:
+  deployment:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: deploy
+        run: echo "Deploying!"
