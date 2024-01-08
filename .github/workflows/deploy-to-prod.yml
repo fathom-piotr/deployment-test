@@ -7,6 +7,18 @@ on:
         description: A full hash of the most recent commit from the 'develop' branch with green CI
         type: string
         required: true
+      replay-tests-ok:
+        description: All the DAILY_TEST_ON_PROD_DATA_* DAGs have no unknown failures 
+        type: boolean
+        required: true
+      smoke-tests-ok:
+        description: The CI_SMOKE_DEV_* DAGs (on testinfra) have no unknown failures list of DAGs to check and we have at least one successful run started after the last commit included in the PR hit develop branch.
+        type: boolean
+        required: true
+      asana-tickets-ok:
+        description: Asana tickets in P1 High pri - by EOD next business day section of buildcop project won't affect datacop's role in shipping out data to vendor and DREAM EOD today.
+        type: boolean
+        required: true
 
 jobs:
   deployment:
