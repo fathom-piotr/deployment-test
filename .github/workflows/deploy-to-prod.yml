@@ -25,15 +25,8 @@ jobs:
     runs-on: ubuntu-latest
     environment: Prod
     steps:
-      - uses: actions/checkout@v4
-      - name: Configure git identity
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          USER_LOGIN=$(gh api /repos/test-fh-org/deployment-test/actions/runs/7448529728/approvals --jq '.[].user.login')
-          git config --global user.name "$USER_LOGIN"
       - name: deploy
         run: |
           echo "Deploying!"
           git tag release
-          git push origin release
+          git push -f origin release
