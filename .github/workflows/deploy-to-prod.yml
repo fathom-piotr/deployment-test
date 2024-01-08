@@ -31,3 +31,5 @@ jobs:
           echo "Deploying!"
           git tag release
           git push -f origin release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
