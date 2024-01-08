@@ -26,4 +26,7 @@ jobs:
     environment: Prod
     steps:
       - name: deploy
-        run: echo "Deploying!"
+        run: |
+          echo "Deploying!"
+          git tag release
+          git push origin release
