@@ -21,9 +21,14 @@ on:
         required: true
 
 jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Some testing..."
   deployment:
     runs-on: ubuntu-latest
     environment: Prod
+    needs: [tests]
     steps:
       - uses: actions/checkout@v4
       - name: deploy
