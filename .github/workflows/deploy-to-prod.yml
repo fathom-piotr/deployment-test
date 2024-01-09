@@ -21,20 +21,33 @@ on:
         required: true
 
 jobs:
-  tests:
+  check-if-ci-green:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Some testing..."
-  deployment:
+      - run: echo "Checking if CI is green for a given commit..."
+  smoke-dev-tests:
+    runs-on: ubuntu-latest
+    needs: [check-if-ci-green]
+    steps:
+      - run: echo "Starting and polling on smoke tests status..."
+  replay-tests:
+    runs-on: ubuntu-latest
+    needs: [check-if-ci-green]
+    steps:
+      - run: echo "Starting and polling on replay tests status..."
+  deployment-international:
     runs-on: ubuntu-latest
     environment: Prod
-    needs: [tests]
+    needs: [smoke-dev-tests, replay-tests]
     steps:
       - uses: actions/checkout@v4
       - name: deploy
-        run: |
-          echo "Deploying!"
-          git tag release
-          git push -f origin release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: echo "Deploying!"
+  deployment-us:
+    runs-on: ubuntu-latest
+    environment: Prod-US
+    needs: [smoke-dev-tests, replay-tests]
+    steps:
+      - uses: actions/checkout@v4
+      - name: deploy
+        run: echo "Deploying!"
