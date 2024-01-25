@@ -27,6 +27,7 @@ jobs:
       - run: echo "Checking if CI is green for a given commit..."
   smoke-dev-tests:
     runs-on: ubuntu-latest
+    environment: Airflow smoke tests
     needs: [check-if-ci-green]
     steps:
       - run: echo "Starting and polling on smoke tests status..."
