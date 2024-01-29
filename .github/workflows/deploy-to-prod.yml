@@ -8,7 +8,7 @@ on:
         type: string
         required: true
       replay-tests-ok:
-        description: All the DAILY_TEST_ON_PROD_DATA_* DAGs have no unknown failures 
+        description: All the DAILY_TEST_ON_PROD_DATA_* DAGs have no unknown [failures](wp.pl) or https://wp.pl/
         type: boolean
         required: true
       smoke-tests-ok:
