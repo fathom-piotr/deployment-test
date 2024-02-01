@@ -25,6 +25,8 @@ jobs:
     name: Validate preconditions
     runs-on: ubuntu-latest
     steps:
+      - name: Check out the repo
+        uses: actions/checkout@v4
       - name: Check that given commit is present on develop
         run: git branch --contains ${{ inputs.commit-to-deploy }} | grep develop
       - name: Check that there are no high-severity tickets
