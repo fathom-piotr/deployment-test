@@ -11,12 +11,17 @@ on:
 
       no-hi-sev-tickets:
         type: boolean
-        description: There are no Asana tickets in "P0 Same-day resolution - blocks develop => master" section of buildcop project (https://app.asana.com/0/1142555270241225/list)
+        description: >
+          There are no Asana tickets in "P0 Same-day resolution - blocks develop => master"
+          section of buildcop project (https://app.asana.com/0/1142555270241225/list)
         required: true
 
       p1-tickets-ok:
         type: boolean
-        description: Asana tickets in "P1 High pri - by EOD next business day" section of buildcop project (https://app.asana.com/0/1142555270241225/list) won't affect datacop's role in shipping out data to vendor and DREAM EOD today
+        description: >
+          Asana tickets in "P1 High pri - by EOD next business day" section of buildcop project
+          (https://app.asana.com/0/1142555270241225/list) won't affect datacop's role in
+          shipping out data to vendor and DREAM EOD today
         required: true
 
 jobs:
@@ -32,17 +37,11 @@ jobs:
           filter: tree:0
           fetch-depth: 0
       - name: Check that given commit is present on develop
-        run: git branch --contains ${{ inputs.commit-to-deploy }} | grep -x "* main"
+        run: git branch --contains ${{ inputs.commit-to-deploy }} | grep -x "* develop"
       - name: Check that there are no high-severity tickets
-        run: |
-          if [ "${{ inputs.no-hi-sev-tickets }}" != "true" ]; then
-            exit 1
-          fi
+        run: if [ "${{ inputs.no-hi-sev-tickets }}" != "true" ]; then exit 1; fi
       - name: Check that there are no P1 buildcop tickets
-        run: |
-          if [ "${{ inputs.p1-tickets-ok }}" != "true" ]; then
-            exit 1
-          fi
+        run: if [ "${{ inputs.p1-tickets-ok }}" != "true" ]; then exit 1; fi
 
   smoke_DAG_tests:
     name: Smoke DAG tests
@@ -51,7 +50,9 @@ jobs:
       - validate_preconditions
     steps:
       - name: Logicless job
-        run: echo "This is a logicless job, meant to model a certain type of tests as a requirement for the prod deployment, and to be able to give explicit approval once the tests pass."
+        run: >
+          echo "This is a logicless job, meant to model a certain type of tests as a requirement
+          for the prod deployment, and to be able to give explicit approval once the tests pass."
 
   replay_tests_intl:
     name: Replay tests (international)
@@ -60,7 +61,9 @@ jobs:
       - validate_preconditions
     steps:
       - name: Logicless job
-        run: echo "This is a logicless job, meant to model a certain type of tests as a requirement for the prod deployment, and to be able to give explicit approval once the tests pass."
+        run: >
+          echo "This is a logicless job, meant to model a certain type of tests as a requirement
+          for the prod deployment, and to be able to give explicit approval once the tests pass."
 
   replay_tests_us_only:
     name: Replay tests (US-only)
@@ -69,7 +72,9 @@ jobs:
       - validate_preconditions
     steps:
       - name: Logicless job
-        run: echo "This is a logicless job, meant to model a certain type of tests as a requirement for the prod deployment, and to be able to give explicit approval once the tests pass."
+        run: >
+          echo "This is a logicless job, meant to model a certain type of tests as a requirement
+          for the prod deployment, and to be able to give explicit approval once the tests pass."
 
   deploy_to_prod:
     name: Deploy to prod
