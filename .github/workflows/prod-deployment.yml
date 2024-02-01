@@ -27,6 +27,10 @@ jobs:
     steps:
       - name: Check out the repo
         uses: actions/checkout@v4
+        with:
+          # Fetch all commits to know their hashes, but without their contents.
+          filter: tree:0
+          fetch-depth: 0
       - name: Check that given commit is present on develop
         run: git branch --contains ${{ inputs.commit-to-deploy }} | grep -x "* main"
       - name: Check that there are no high-severity tickets
