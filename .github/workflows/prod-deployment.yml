@@ -37,7 +37,7 @@ jobs:
           filter: tree:0
           fetch-depth: 0
       - name: Check that given commit is present on develop
-        run: git branch --contains ${{ inputs.commit-to-deploy }} | grep -x "* develop"
+        run: git branch --contains ${{ inputs.commit-to-deploy }} | grep -x "* main"
       - name: Check that there are no high-severity tickets
         run: if [ "${{ inputs.no-hi-sev-tickets }}" != "true" ]; then exit 1; fi
       - name: Check that there are no P1 buildcop tickets
