@@ -28,7 +28,7 @@ jobs:
       - name: Check out the repo
         uses: actions/checkout@v4
       - name: Check that given commit is present on develop
-        run: git branch --contains ${{ inputs.commit-to-deploy }} | grep x "* main"
+        run: git branch --contains ${{ inputs.commit-to-deploy }} | grep -x "* main"
       - name: Check that there are no high-severity tickets
         run: if [ "${{ inputs.no-hi-sev-tickets }}" != "true" ]; then exit 1
       - name: Check that there are no P1 buildcop tickets
