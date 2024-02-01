@@ -1,0 +1,71 @@
+name: Prod deployment
+
+on:
+  workflow_dispatch:
+    inputs:
+
+      commit-to-deploy:
+        type: string
+        description: Hash of a commit to be deployed - its CI has to be green!
+        required: true
+
+      no-hi-sev-tickets:
+        type: boolean
+        description: There are no Asana tickets in "P0 Same-day resolution - blocks develop => master" section of buildcop project (https://app.asana.com/0/1142555270241225/list)
+        required: true
+
+      p1-tickets-ok:
+        type: boolean
+        description: Asana tickets in "P1 High pri - by EOD next business day" section of buildcop project (https://app.asana.com/0/1142555270241225/list) won't affect datacop's role in shipping out data to vendor and DREAM EOD today
+        required: true
+
+jobs:
+
+  validate_preconditions:
+    name: Validate preconditions
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check that given commit is present on develop
+        run: git branch --contains ${{ inputs.commit-to-deploy }} | grep develop
+      - name: Check that there are no high-severity tickets
+        run: if [ "${{ inputs.no-hi-sev-tickets }}" != "true" ]; then exit 1
+      - name: Check that there are no P1 buildcop tickets
+        run: if [ "${{ inputs.p1-tickets-ok }}" != "true" ]; then exit 1
+
+  smoke_DAG_tests:
+    name: Smoke DAG tests
+    runs-on: ubuntu-latest
+    needs:
+      - validate_preconditions
+    steps:
+      - name: Logicless job
+        run: echo "This is a logicless job, meant to model a certain type of tests as a requirement for the prod deployment, and to be able to give explicit approval once the tests pass."
+
+  replay_tests_intl:
+    name: Replay tests (international)
+    runs-on: ubuntu-latest
+    needs:
+      - validate_preconditions
+    steps:
+      - name: Logicless job
+        run: echo "This is a logicless job, meant to model a certain type of tests as a requirement for the prod deployment, and to be able to give explicit approval once the tests pass."
+
+  replay_tests_us_only:
+    name: Replay tests (US-only)
+    runs-on: ubuntu-latest
+    needs:
+      - validate_preconditions
+    steps:
+      - name: Logicless job
+        run: echo "This is a logicless job, meant to model a certain type of tests as a requirement for the prod deployment, and to be able to give explicit approval once the tests pass."
+
+  deploy_to_prod:
+    name: Deploy to prod
+    runs-on: ubuntu-latest
+    needs:
+      - smoke_DAG_tests
+      - replay_tests_intl
+      - replay_tests_us_only
+    steps:
+      - name: TODO
+        run: echo "TODO add prod deployment logic - https://app.asana.com/0/0/1206492989283782/f"
