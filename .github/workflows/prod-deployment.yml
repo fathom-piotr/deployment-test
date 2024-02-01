@@ -34,9 +34,9 @@ jobs:
       - name: Check that given commit is present on develop
         run: git branch --contains ${{ inputs.commit-to-deploy }} | grep -x "* main"
       - name: Check that there are no high-severity tickets
-        run: if [ "${{ inputs.no-hi-sev-tickets }}" != "true" ]; then exit 1
+        run: [ "${{ inputs.no-hi-sev-tickets }}" != "true" ] && exit 1
       - name: Check that there are no P1 buildcop tickets
-        run: if [ "${{ inputs.p1-tickets-ok }}" != "true" ]; then exit 1
+        run: [ "${{ inputs.p1-tickets-ok }}" != "true" ] && exit 1
 
   smoke_DAG_tests:
     name: Smoke DAG tests
