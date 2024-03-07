@@ -1,5 +1,5 @@
 name: Prod deploymen
-run-name: Deploy ${{ inputs.commit-to-deploy }} ${{ inputs.is-hotfix == 'true' && ' hotfix' || 'regular' }}
+run-name: Deploy ${{ inputs.commit-to-deploy }} ${{ inputs.is-hotfix }} ${{ inputs.is-hotfix == 'true' && ' hotfix' || 'regular' }}
 
 on:
   workflow_dispatch:
