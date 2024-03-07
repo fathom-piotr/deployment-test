@@ -1,4 +1,5 @@
-name: Prod deployment
+name: Prod deploymen
+run-name: Deploy ${{ inputs.commit-to-deploy }}
 
 on:
   workflow_dispatch:
