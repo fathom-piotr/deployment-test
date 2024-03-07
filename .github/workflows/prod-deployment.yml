@@ -10,10 +10,10 @@ on:
         description: Hash of a commit to be deployed - its CI has to be green!
         required: true
 
-     is-hotfix:
-       type: boolean
-       description: Mark it if it's a hotfix (prod patch).
-       required: true
+      is-hotfix:
+        type: boolean
+        description: Mark it if it's a hotfix (prod patch).
+        required: true
 
       no-hi-sev-tickets:
         type: boolean
