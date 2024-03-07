@@ -1,5 +1,5 @@
 name: Prod deploymen
-run-name: Deploy ${{ inputs.commit-to-deploy }}
+run-name: Deploy ${{ inputs.commit-to-deploy }}${{ inputs.is-hotfix == 'true' && ' (🔥hotfix🔥)' || '' }}
 
 on:
   workflow_dispatch:
@@ -9,6 +9,11 @@ on:
         type: string
         description: Hash of a commit to be deployed - its CI has to be green!
         required: true
+
+     is-hotfix:
+       type: boolean
+       description: Mark it if it's a hotfix (prod patch).
+       required: true
 
       no-hi-sev-tickets:
         type: boolean
