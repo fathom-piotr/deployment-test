@@ -7,6 +7,11 @@ on:
 jobs:
   build:
     runs-on: 'ubuntu-latest'
+    strategy:
+      matrix:
+        name:
+          - foo
+          - bar
     steps:
       - name: Hello world
-        run: echo Hello
+        run: echo Hello ${{ matrix.name }}
