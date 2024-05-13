@@ -1,4 +1,4 @@
-name: Prod deploymeny
+name: Prod deployment
 
 on:
   workflow_dispatch:
@@ -7,6 +7,7 @@ jobs:
 
   smoke_DAG_tests:
     name: Smoke DAG tests
+    environment:  Smoke DAG tests
     runs-on: ubuntu-latest
     steps:
       - name: Logicless job
